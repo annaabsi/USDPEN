@@ -3,6 +3,15 @@ import requests
 import re
 from io import StringIO
 
+
+def round_half_up(number,decimals):
+    if round((number * 10 ** (decimals + 1)) % 10 )== 5:
+        new_number=number+1/(10**(decimals+1))
+        return round(new_number, decimals)
+    else:
+        return round(number, decimals)
+
+
 try:
     url = "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04639PD-PD04640PD-PD04637PD-PD04638PD/csv/2020-01-01/2021-11-30"
     headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0"}
@@ -31,6 +40,12 @@ try:
 
     df=pd.read_csv(data, names=["FECHA","TC_SBS_COMPRA","TC_SBS_VENTA","TC_INTERBANCARIO_COMPRA","TC_INTERBANCARIO_VENTA"],skiprows=1)
     df['FECHA']=pd.to_datetime(df['FECHA'], format='%d.%m.%y')
+
+
+    df['TC_SBS_COMPRA']=df['TC_SBS_COMPRA'].apply(round_half_up,decimals=3)
+    df['TC_SBS_VENTA']=df['TC_SBS_VENTA'].apply(round_half_up,decimals=3)
+
+
     df.to_csv("results/dolar.csv",index=False)
 
 except ConnectionResetError:
