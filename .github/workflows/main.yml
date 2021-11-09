@@ -5,7 +5,7 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 14,17,22 * * *' # runs at 12, 14, 17 and 22 UTC everyday
+    - cron: '0 14,17,22 * * *' 
 
 jobs:
   daily-dolar:
