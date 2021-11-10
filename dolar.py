@@ -45,8 +45,27 @@ try:
     df['TC_SBS_COMPRA']=df['TC_SBS_COMPRA'].apply(round_half_up,decimals=3)
     df['TC_SBS_VENTA']=df['TC_SBS_VENTA'].apply(round_half_up,decimals=3)
 
-
     df.to_csv("results/dolar.csv",index=False)
+
+    df_sbs_com=df[["FECHA","TC_SBS_COMPRA"]]
+    df_sbs_ven=df[["FECHA","TC_SBS_VENTA"]]
+    df_int_com=df[["FECHA","TC_INTERBANCARIO_COMPRA"]]
+    df_int_ven=df[["FECHA","TC_INTERBANCARIO_VENTA"]]
+
+    df_sbs_com.columns=['time','value']
+    df_sbs_ven.columns=['time','value']
+    df_int_com.columns=['time','value']
+    df_int_ven.columns=['time','value']
+
+    df_sbs_com['time']=df_sbs_com['time'].dt.strftime('%Y-%m-%d')
+    df_sbs_ven['time']=df_sbs_ven['time'].dt.strftime('%Y-%m-%d')
+    df_int_com['time']=df_int_com['time'].dt.strftime('%Y-%m-%d')
+    df_int_ven['time']=df_int_ven['time'].dt.strftime('%Y-%m-%d')
+
+    df_sbs_com.to_json("results/timeseries_by_tc/TC_SBS_COMPRA.json",orient="records")
+    df_sbs_ven.to_json("results/timeseries_by_tc/TC_SBS_VENTA.json",orient="records")
+    df_int_com.to_json("results/timeseries_by_tc/TC_INTERBANCARIO_COMPRA.json",orient="records")
+    df_int_ven.to_json("results/timeseries_by_tc/TC_INTERBANCARIO_VENTA.json",orient="records")
 
 except ConnectionResetError:
     pass
