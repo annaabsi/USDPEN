@@ -1,7 +1,10 @@
+import re
+from datetime import datetime
+from io import StringIO
+
 import pandas as pd
 import requests
-import re
-from io import StringIO
+
 
 
 def round_half_up(number,decimals):
@@ -13,7 +16,11 @@ def round_half_up(number,decimals):
 
 
 try:
-    url = "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04639PD-PD04640PD-PD04637PD-PD04638PD/csv/2020-01-01/2021-11-30"
+    
+    url = f"https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04639PD-PD04640PD-PD04637PD-PD04638PD/csv/2020-01-01/{datetime.today().strftime('%Y-%m-%d')}"
+
+    print(url)
+
     headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0"}
     req = requests.get(url, headers=headers)
     req_text=str(req.text).replace("<br>","\n")
