@@ -45,7 +45,15 @@ try:
     result = pattern.sub(lambda x: dict_months[x.group()], req_text)
     data = StringIO(result)
 
-    df = pd.read_csv(data, names=["FECHA", "TC_INTERBANCARIO_COMPRA", "TC_INTERBANCARIO_VENTA", "TC_SBS_COMPRA", "TC_SBS_VENTA"], skiprows=1)
+    df = pd.read_csv(data)
+    df["TC_INTERBANCARIO_COMPRA"]=df["Tipo de cambio - TC Interbancario (S/ por US$) - Compra"]
+    df["TC_INTERBANCARIO_VENTA"]=df["Tipo de cambio - TC Interbancario (S/ por US$) - Venta"]
+    df["TC_SBS_COMPRA"]=df["Tipo de cambio - TC Sistema bancario SBS (S/ por US$) - Compra"]
+    df["TC_SBS_VENTA"]=df["Tipo de cambio - TC Sistema bancario SBS (S/ por US$) - Venta"]
+    df["FECHA"]=df["D&iacute;a/Mes/A&ntilde;o"]
+    df=df[["FECHA", "TC_INTERBANCARIO_COMPRA", "TC_INTERBANCARIO_VENTA", "TC_SBS_COMPRA", "TC_SBS_VENTA"]]
+    
+
     df['FECHA'] = pd.to_datetime(df['FECHA'], format='%d.%m.%y')
 
     df['TC_SBS_COMPRA'] = df['TC_SBS_COMPRA'].apply(round_half_up, decimals=3)
