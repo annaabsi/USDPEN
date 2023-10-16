@@ -63,6 +63,9 @@ try:
 
     df.to_csv("results/dolar.csv", index=False)
 
+    df_5d = df.tail(5)
+    df.to_csv("results/dolar_5d.csv", index=False)
+
     df_sbs_com = df[["FECHA", "TC_SBS_COMPRA"]]
     df_sbs_ven = df[["FECHA", "TC_SBS_VENTA"]]
     df_int_com = df[["FECHA", "TC_INTERBANCARIO_COMPRA"]]
