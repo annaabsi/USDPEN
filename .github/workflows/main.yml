@@ -9,7 +9,7 @@ on:
 
 jobs:
   daily-dolar:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
 
       - name: checkout repo content
