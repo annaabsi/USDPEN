@@ -59,7 +59,7 @@ try:
     df['TC_SBS_COMPRA'] = df['TC_SBS_COMPRA'].apply(round_half_up, decimals=3)
     df['TC_SBS_VENTA'] = df['TC_SBS_VENTA'].apply(round_half_up, decimals=3)
 
-    df['AÑO'] = df['FECHA'].dt.year
+    df['AÑO'] = df['FECHA'].dt.year.astype(str)
 
     df.to_csv("results/dolar.csv", index=False)
 
