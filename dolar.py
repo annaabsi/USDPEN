@@ -56,8 +56,8 @@ try:
 
     df['FECHA'] = pd.to_datetime(df['FECHA'], format='%d.%m.%y')
 
-    df['TC_SBS_COMPRA'] = df['TC_SBS_COMPRA'].apply(round_half_up, decimals=3)
-    df['TC_SBS_VENTA'] = df['TC_SBS_VENTA'].apply(round_half_up, decimals=3)
+    #df['TC_SBS_COMPRA'] = df['TC_SBS_COMPRA'].apply(round_half_up, decimals=3)
+    #df['TC_SBS_VENTA'] = df['TC_SBS_VENTA'].apply(round_half_up, decimals=3)
 
     df['AÑO'] = df['FECHA'].dt.year.astype(str)
 
